@@ -1,4 +1,5 @@
-// this is yet to do anything relevant. Still under construction
+// this is yet to do anything relevant. Still under construction.
+// this is where the encoder will be instantiated and it's methods called
 
 
 #include <iostream>

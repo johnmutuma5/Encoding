@@ -9,10 +9,10 @@ template <class T>
 struct NodeItem {
 
     T data;
-    int priority;
+    long priority;
     NodeItem<T>* next = NULL;
 
-    NodeItem (T, int);
+    NodeItem (T, long);
     ~NodeItem ();
 };
 
@@ -23,9 +23,9 @@ class PriorityQueue {
     int size;
     NodeItem<T>* root = NULL;
 
-    void updatePriorityHelper (T data, int newPriority, NodeItem<T>*& current, int currentIndex = 0);
+    void updatePriorityHelper (T data, long newPriority, NodeItem<T>*& current, int currentIndex = 0);
   public:
-    PriorityQueue (T, int);
+    PriorityQueue (T, long);
     PriorityQueue ();
     ~PriorityQueue ();
 
@@ -34,9 +34,9 @@ class PriorityQueue {
     friend std::ostream& operator<<(std::ostream& out, PriorityQueue<T_out>&);
 
     int get_size () const;
-    void insert(T, int);
+    void insert(T, long);
     T pop ();
-    void updatePriority (T, int);
+    void updatePriority (T, long);
     void erase (int);
     void clear();
   protected:
@@ -54,7 +54,7 @@ class PriorityQueue {
 
 
 template <class T>
-NodeItem<T>::NodeItem (T data, int priority) {
+NodeItem<T>::NodeItem (T data, long priority) {
     // std::cout<< "NodeItem constructor"<< std::endl;
     this->data = data;
     this->priority = priority;
@@ -68,7 +68,7 @@ NodeItem<T>::~NodeItem () {
 
 
 template <class T>
-PriorityQueue<T>::PriorityQueue (T data, int priority):
+PriorityQueue<T>::PriorityQueue (T data, long priority):
 size(0)
 {
     this->root = new NodeItem<T> (data, priority);
@@ -123,7 +123,7 @@ T PriorityQueue<T>::pop () {
 
 
 template <class T>
-void insertHelper (T& data, int priority, NodeItem<T>*& current, int index = 0) {
+void insertHelper (T& data, long priority, NodeItem<T>*& current, int index = 0) {
     if (current == NULL || current-> priority > priority) {
         NodeItem<T>* newItem = new NodeItem<T> (data, priority);
         newItem -> next = current;
@@ -134,7 +134,7 @@ void insertHelper (T& data, int priority, NodeItem<T>*& current, int index = 0) 
 }
 
 template <class T>
-void PriorityQueue<T>::insert (T data, int priority) {
+void PriorityQueue<T>::insert (T data, long priority) {
     insertHelper (data, priority, this->root);
     (this->size)++;
 }
@@ -146,7 +146,7 @@ void PriorityQueue<T>::insert (T data, int priority) {
 
 
 template <class T>
-void PriorityQueue<T>::updatePriorityHelper (T data, int newPriority, NodeItem<T>*& current, int currentIndex) {
+void PriorityQueue<T>::updatePriorityHelper (T data, long newPriority, NodeItem<T>*& current, int currentIndex) {
     if (current == NULL) {
         return;
     }
@@ -159,7 +159,7 @@ void PriorityQueue<T>::updatePriorityHelper (T data, int newPriority, NodeItem<T
 }
 
 template <class T>
-void PriorityQueue<T>::updatePriority(T data, int newPriority) {
+void PriorityQueue<T>::updatePriority(T data, long newPriority) {
     updatePriorityHelper (data, newPriority, this->root);
 }
 

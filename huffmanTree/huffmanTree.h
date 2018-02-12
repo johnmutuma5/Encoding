@@ -9,15 +9,15 @@ using std::string;
 
 struct HuffmanNode {
     static int total;
-    int priority;
+    long priority;
     char chr;
 
     HuffmanNode* left = NULL;
     HuffmanNode* right = NULL;
 
     HuffmanNode ();
-    HuffmanNode (int); // for non-leaf nodes
-    HuffmanNode (int, char); // for leaf nodes
+    HuffmanNode (long); // for non-leaf nodes
+    HuffmanNode (long, char); // for leaf nodes
     // HuffmanNode (const HuffmanNode& obj); // copy constructor
     ~HuffmanNode ();
 
@@ -35,7 +35,7 @@ class HuffmanTree {
         map<char, string>& get_encoding_map (); //simultaneously creates the decoding_map too
         map<string, char>& get_decoding_map ();
     private:
-        HuffmanNode* p_tree; // to be instatiated to a pointer to this->tree
+        HuffmanNode* p_tree;
         map<char, string> encoding_map;
         map<string, char> decoding_map;
         void clear ();
@@ -56,6 +56,3 @@ class HuffmanTreeBuilder {
         PriorityQueue<HuffmanNode>* pq = NULL;
     protected:
 };
-
-
-

@@ -5,37 +5,29 @@
 
 using namespace std;
 
-int charToInt (string chr) {
+int charToInt (char chr) {
     int result;
 
-    stringstream iss (chr);
+    string _chr;
+    _chr.push_back(chr);
+    stringstream iss (_chr);
     iss >> result;
     return result;
 }
 
 void stringToByteHelper (string& bitsString, unsigned char& currByte, ofstream& out, int bitCount=0) {
-    if (bitCount == 8) {
-        out << currByte;
-        currByte = 0;
-        bitCount = 0;
+    for (char bit_char: bitsString) {
+      if (bitCount == 8) {
+          out << currByte;
+          currByte = 0;
+          bitCount = 0;
+      }
+
+      int bit = charToInt(bit_char);
+      currByte <<= 1; //shift bits one step left to create room for the next byte
+      currByte |= bit; // set the bit with bitwise OR, bit masking
+      bitCount++;
     }
-
-    if (bitsString.empty())
-        return;
-
-    // choose first character and erase it from bitsString
-    string chr;
-    chr.push_back(bitsString.at(0));
-    bitsString.erase(0, 1);
-
-
-    int bit =  charToInt(chr);
-    currByte <<= 1; //shift bits one step left to create room for the next byte
-    currByte |= bit; // set the bit with bitwise OR, bit masking
-
-
-    stringToByteHelper (bitsString, currByte, out, bitCount + 1);
-    bitsString.insert(0, chr);
 }
 
 

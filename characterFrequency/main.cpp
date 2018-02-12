@@ -14,14 +14,11 @@ int main () {
     // for (const pair<const char, int>& x: char_freqs)
     //     cout << x.first << " : " << x.second << endl;
     ifstream infile ("text.txt", ios::in);
-    map<char, int> char_freqs;
+    map<char, long> char_freqs;
     char_freqs = get_char_freq(infile);
 
-    for (const pair<const char, int>& x: char_freqs) {
+    for (const pair<const char, long>& x: char_freqs)
         cout << x.first << " : " << x.second << endl;
-        if (x.first == (char)3)
-            cout << "true"<<endl;
-    }
 
 
 

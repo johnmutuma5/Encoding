@@ -11,13 +11,13 @@ HuffmanNode::HuffmanNode () {
 
 }
 
-HuffmanNode::HuffmanNode (int priority):
+HuffmanNode::HuffmanNode (long priority):
 priority(priority)
 {
 
 }
 
-HuffmanNode::HuffmanNode (int priority, char chr):
+HuffmanNode::HuffmanNode (long priority, char chr):
 priority(priority), chr(chr)
 {
 
@@ -52,7 +52,7 @@ void build_helper (PriorityQueue<HuffmanNode>*& pq) {
 
     //build a new node with priority equal to the sum of the first two nodes and having left child as the first node and right child
     //as the right node and reinsert it intor the priority queue
-    int joint_priority = first_node->priority + second_node->priority;
+    long joint_priority = first_node->priority + second_node->priority;
     HuffmanNode tree (joint_priority);
     tree.left = first_node;
     tree.right = second_node;

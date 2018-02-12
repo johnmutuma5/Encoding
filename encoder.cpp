@@ -30,7 +30,6 @@ void Encoder::encode (ifstream& file, ofstream& ofs) {
 
     while(file.get(chr))
         binary_string+=encoding_map[chr];
-
     binary_string+=encoding_map[EOF]; // creat End of File flag
 
     stringToBytes (binary_string, ofs);
@@ -41,17 +40,19 @@ void Encoder::encode (ifstream& file, ofstream& ofs) {
 
 
 HuffmanTree* Encoder::build_tree (ifstream& file) {
-    map<char, int> char_freq_map;
+    map<char, long> char_freq_map;
     char_freq_map = get_char_freq(file);
     file.clear(); //clear eofbit flag to be able to seekg the file
     file.seekg(0); // the file will be reused again by Encoder::encode
 
     // create a priorityQueue of HuffmanNodes
     PriorityQueue<HuffmanNode> pq;
-    for (const pair<const char, int>& map_item: char_freq_map) {
+    for (const pair<const char, long>& map_item: char_freq_map) {
         HuffmanNode node(map_item.second, map_item.first); // accepts int priority, char chr
         pq.insert(node, map_item.second);
     }
+
+    // cout << pq << endl;
     // make a HuffmanTreeBuilder with a priority queue of HuffmanNodes
     HuffmanTreeBuilder treeBuilder(&pq);
     return treeBuilder.build_tree();

@@ -7,4 +7,4 @@
 using std::string;
 using std::map;
 
-map<char, int> get_char_freq (std::ifstream&);
+map<char, long> get_char_freq (std::ifstream&);

@@ -18,7 +18,7 @@ int main () {
     output.close();
 
 
-    // demonstrate decoding
+    // demonstrate decoding v
     ifstream to_decode ("encoded.txt", ios::in);
     ofstream decoded ("decoded.txt", ios::out);
     encoder.decode(to_decode, decoded);

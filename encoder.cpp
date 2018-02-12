@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Encoder::Encoder (){
+Encoder::Encoder () {
     // this->tree = new HuffmanTree;
 }
 

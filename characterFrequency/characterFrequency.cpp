@@ -7,13 +7,13 @@
 using namespace std;
 
 
-
-map<char, int> get_char_freq (string& msg) {
-    set<char> charSet (msg.begin(), msg.end());
+map<char, int> get_char_freq (ifstream& file) {
+    char chr;
     map<char, int> charFreq;
 
-    for (const char& chr: msg)
+    while (file.get(chr))
         charFreq[chr]++;
+    charFreq[EOF] = 1; // char to rep End of File
 
     return charFreq;
 }

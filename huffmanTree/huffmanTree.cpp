@@ -63,13 +63,14 @@ void build_helper (PriorityQueue<HuffmanNode>*& pq) {
     build_helper (pq);
 }
 
-HuffmanTree HuffmanTreeBuilder::build_tree () {
+HuffmanTree* HuffmanTreeBuilder::build_tree () {
     build_helper (this->pq);
 
     // let us remember to dynamically allocate memory to the last node just like how the children nodes have beeb allocated
     HuffmanNode* root = new HuffmanNode ();
     *root = this->pq->pop();
-    return HuffmanTree (root);
+    HuffmanTree* tree = new HuffmanTree (root);
+    return tree;
 }
 
 
@@ -77,6 +78,10 @@ HuffmanTree::HuffmanTree (HuffmanNode*& root):
 p_tree(root)
 {
     //
+}
+
+HuffmanTree::HuffmanTree () {
+    // non-param constructor
 }
 
 HuffmanTree::~HuffmanTree () {

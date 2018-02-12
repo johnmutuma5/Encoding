@@ -8,4 +8,4 @@ using std::ostringstream;
 
 int charToInt (string);
 void stringToByteHelper (string&, unsigned char&, ostringstream&, int);
-ostringstream& stringToBytes (string&, ostringstream&);
+void stringToBytes (string&, ostringstream&);

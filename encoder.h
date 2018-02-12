@@ -1,8 +1,8 @@
 #pragma once
 
-#include <map>
+#include <iostream>
 #include <sstream>
-#include "HuffmanTree"
+#include "huffmanTree.h"
 
 class Encoder {
     public:
@@ -11,7 +11,8 @@ class Encoder {
         void encode (std::string&);
         void decode ();
     private:
-        HuffmanTree* tree;
-        void build_tree (std::string msg);
+        HuffmanTree* tree; // this one is assigned to a dynamically allocated pointer; clear this in destructor
+        HuffmanTree* build_tree (std::string& msg);
+        std::ostringstream oss;
     protected:
 };

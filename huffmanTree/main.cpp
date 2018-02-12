@@ -12,7 +12,7 @@ using namespace std;
 
 
 int main () {
-    string msg = "My name is Lazuli. I am one year old. I love my Mummy and Daddy very much!";
+    string msg = "My name is Lazuli Muthoni Murimi. I love my Mummy and Daddy very much!***";
     // create a char frequency map
     map<char, int> char_freq_map;
     char_freq_map = get_char_freq(msg);

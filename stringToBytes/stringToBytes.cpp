@@ -40,12 +40,11 @@ void stringToByteHelper (string& bitsString, unsigned char& currByte, ostringstr
 
 
 
-ostringstream& stringToBytes (string& bitsString, ostringstream& oss) {
+void stringToBytes (string& bitsString, ostringstream& oss) {
     // ensure bitString is in multiple of 8bits by appending 0s
     while (bitsString.size() % 8)
         bitsString.push_back('0');
 
     unsigned char currentByte = 0b00000000;
     stringToByteHelper (bitsString, currentByte, oss);
-    return oss;
 }

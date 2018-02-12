@@ -29,6 +29,7 @@ struct HuffmanNode {
 class HuffmanTree {
     public:
         HuffmanTree (HuffmanNode*&);
+        HuffmanTree ();
         ~HuffmanTree ();
         void toString();
         map<char, string>& get_encoding_map (); //simultaneously creates the decoding_map too
@@ -50,7 +51,7 @@ class HuffmanTreeBuilder {
         HuffmanTreeBuilder ();
         HuffmanTreeBuilder (PriorityQueue<HuffmanNode>*);
         ~HuffmanTreeBuilder ();
-        HuffmanTree build_tree ();
+        HuffmanTree* build_tree ();
     private:
         PriorityQueue<HuffmanNode>* pq = NULL;
     protected:

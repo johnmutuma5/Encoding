@@ -92,6 +92,9 @@ void HuffmanTree::toString () {
     cout << *(this->p_tree->left) << endl;
 }
 
+
+
+
 bool get_map_helper (HuffmanNode*& current,
                     map<char, string>& encoding_map,
                     map<string, char>& decoding_map,

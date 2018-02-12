@@ -1,5 +1,5 @@
 #include <iostream>
-#include <sstream>
+#include <fstream>
 #include <map>
 
 #include "encoder.h"
@@ -17,27 +17,34 @@ Encoder::~Encoder () {
 }
 
 
-void Encoder::encode (string& msg) {
-    cout << "[Encoder::encode] (raw message) -> " << msg << endl;
-    HuffmanTree* _tree = this->build_tree (msg); // returns dynamically allocated memory, clear this with ~Encoder()
+void Encoder::encode (ifstream& file, ofstream& ofs) {
+    cout << "[Encoder::encode] (raw message) -> " << endl;
+
+    HuffmanTree* _tree = this->build_tree (file); // returns dynamically allocated memory, clear this with ~Encoder()
     this->tree = _tree;
 
     map<char, string> encoding_map = tree->get_encoding_map();
 
     string binary_string = "";
-    for (const char& chr: msg)
+    char chr;
+
+    while(file.get(chr))
         binary_string+=encoding_map[chr];
 
-    stringToBytes (binary_string, this->oss);
-    cout <<"[Encoder::encode] (encoded message) -> ";
-    cout << this->oss.str() << endl<< endl;
+    binary_string+=encoding_map[EOF]; // creat End of File flag
+
+    stringToBytes (binary_string, ofs);
+    cout <<"[Encoder::encode] (encoded message) -> " << endl;
+    // cout << this-> oss.str() << endl<< endl;
 }
 
 
 
-HuffmanTree* Encoder::build_tree (string& msg) {
+HuffmanTree* Encoder::build_tree (ifstream& file) {
     map<char, int> char_freq_map;
-    char_freq_map = get_char_freq(msg);
+    char_freq_map = get_char_freq(file);
+    file.clear(); //clear eofbit flag to be able to seekg the file
+    file.seekg(0); // the file will be reused again by Encoder::encode
 
     // create a priorityQueue of HuffmanNodes
     PriorityQueue<HuffmanNode> pq;
@@ -45,17 +52,19 @@ HuffmanTree* Encoder::build_tree (string& msg) {
         HuffmanNode node(map_item.second, map_item.first); // accepts int priority, char chr
         pq.insert(node, map_item.second);
     }
-
     // make a HuffmanTreeBuilder with a priority queue of HuffmanNodes
     HuffmanTreeBuilder treeBuilder(&pq);
     return treeBuilder.build_tree();
 }
 
 
-void Encoder::decode () {
+void Encoder::decode (ifstream& ifs, ofstream& ofs) {
     map<string, char> decoding_map = this->tree->get_decoding_map();
 
-    string encoded_string = this->oss.str();
+    string encoded_string;
+    char chr;
+    while (ifs.get(chr))
+        encoded_string.push_back(chr);
 
     string decoded_binary = "";
     for (char chr: encoded_string){
@@ -72,7 +81,11 @@ void Encoder::decode () {
     for (const char chr: decoded_binary) {
         decoding_key.push_back(chr);
         if (decoding_map.count(decoding_key)) {
-            cout << decoding_map[decoding_key];
+
+            if (decoding_map[decoding_key] == EOF)
+                break;
+            ofs << decoding_map[decoding_key];
+
             decoding_key = "";
         }
     }

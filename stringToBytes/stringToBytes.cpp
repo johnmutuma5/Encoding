@@ -1,6 +1,6 @@
 #include <iostream>
 #include <sstream> // for string
-// #include <fstream>
+#include <fstream>
 #include "stringToBytes.h"
 
 using namespace std;
@@ -13,7 +13,7 @@ int charToInt (string chr) {
     return result;
 }
 
-void stringToByteHelper (string& bitsString, unsigned char& currByte, ostringstream& out, int bitCount=0) {
+void stringToByteHelper (string& bitsString, unsigned char& currByte, ofstream& out, int bitCount=0) {
     if (bitCount == 8) {
         out << currByte;
         currByte = 0;
@@ -40,11 +40,11 @@ void stringToByteHelper (string& bitsString, unsigned char& currByte, ostringstr
 
 
 
-void stringToBytes (string& bitsString, ostringstream& oss) {
+void stringToBytes (string& bitsString, ofstream& ofs) {
     // ensure bitString is in multiple of 8bits by appending 0s
     while (bitsString.size() % 8)
         bitsString.push_back('0');
 
     unsigned char currentByte = 0b00000000;
-    stringToByteHelper (bitsString, currentByte, oss);
+    stringToByteHelper (bitsString, currentByte, ofs);
 }

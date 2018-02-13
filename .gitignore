@@ -1,5 +1,5 @@
 #
 
 *.bin
-decoded.txt
-toons.jpg
+*decoded.txt
+*toons.jpg
